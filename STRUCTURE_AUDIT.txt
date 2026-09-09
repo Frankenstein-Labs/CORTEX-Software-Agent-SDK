@@ -1,0 +1,861 @@
+===== opendesign =====
+LICENSE HEAD:
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+DIRECTORIES:
+apps
+apps/daemon
+apps/desktop
+apps/landing-page
+apps/packaged
+apps/web
+assets
+assets/community-pets
+assets/frames
+assets/prompt-templates
+craft
+design-systems
+design-systems/agentic
+design-systems/airbnb
+design-systems/airtable
+design-systems/ant
+design-systems/apple
+design-systems/application
+design-systems/arc
+design-systems/artistic
+design-systems/atelier-zero
+design-systems/bento
+design-systems/binance
+design-systems/bmw
+design-systems/bold
+design-systems/brutalism
+design-systems/bugatti
+design-systems/cafe
+design-systems/cal
+design-systems/canva
+design-systems/claude
+design-systems/clay
+design-systems/claymorphism
+design-systems/clean
+design-systems/clickhouse
+design-systems/cohere
+design-systems/coinbase
+design-systems/colorful
+design-systems/composio
+design-systems/contemporary
+design-systems/corporate
+design-systems/cosmic
+design-systems/creative
+design-systems/cursor
+design-systems/dashboard
+design-systems/default
+design-systems/discord
+design-systems/dithered
+design-systems/doodle
+design-systems/dramatic
+design-systems/duolingo
+design-systems/editorial
+design-systems/elegant
+design-systems/elevenlabs
+design-systems/energetic
+design-systems/enterprise
+design-systems/expo
+design-systems/expressive
+design-systems/fantasy
+design-systems/ferrari
+design-systems/figma
+design-systems/flat
+design-systems/framer
+design-systems/friendly
+design-systems/futuristic
+design-systems/github
+design-systems/glassmorphism
+design-systems/gradient
+design-systems/hashicorp
+design-systems/huggingface
+design-systems/ibm
+design-systems/intercom
+design-systems/kami
+design-systems/kraken
+design-systems/lamborghini
+design-systems/levels
+design-systems/linear-app
+design-systems/lingo
+design-systems/lovable
+design-systems/luxury
+KEY SYMBOLS / DOC HITS:
+external/opendesign/tools/AGENTS.md:10:- `pnpm tools-dev inspect desktop ...` inspects the desktop runtime through sidecar IPC.
+external/opendesign/tools/AGENTS.md:15:- Keep `tools-pack` focused on packaging/runtime control and release artifact preparation. Runtime updater product integration remains a later phase.
+external/opendesign/tools/AGENTS.md:17:- Namespace controls packaged data/log/runtime/cache paths. Ports are transient transport details and must not participate in path decisions.
+external/opendesign/tools/AGENTS.md:23:- Do not hand-build `--od-stamp-*` args, process-scan regexes, runtime tokens, process roles, or duplicate namespace/source args in `tools/dev`, future `tools/pack`, or packaged launchers.
+external/opendesign/tools/pack/src/config.ts:15:export const WORKSPACE_ROOT = resolve(__dirname, ENTRY_DIR_NAME === "dist" ? "../../.." : "../../..");
+external/opendesign/tools/pack/src/config.ts:44:  runtime: {
+external/opendesign/tools/pack/src/config.ts:67:  workspaceRoot: string;
+external/opendesign/tools/pack/src/config.ts:78:function resolveElectronVersion(workspaceRoot: string): string {
+external/opendesign/tools/pack/src/config.ts:79:  const require = createRequire(join(workspaceRoot, "apps/desktop/package.json"));
+external/opendesign/tools/pack/src/config.ts:80:  const desktopPackage = require(join(workspaceRoot, "apps/desktop/package.json")) as {
+external/opendesign/tools/pack/src/config.ts:90:function resolveElectronDistPath(workspaceRoot: string): string {
+external/opendesign/tools/pack/src/config.ts:91:  const require = createRequire(join(workspaceRoot, "apps/desktop/package.json"));
+external/opendesign/tools/pack/src/config.ts:110:  const toolPackRoot = resolve(options.dir ?? join(WORKSPACE_ROOT, ".tmp", "tools-pack"));
+external/opendesign/tools/pack/src/config.ts:114:  const runtimeNamespaceBaseRoot = join(toolPackRoot, "runtime", platform, "namespaces");
+external/opendesign/tools/pack/src/config.ts:119:    electronDistPath: resolveElectronDistPath(WORKSPACE_ROOT),
+external/opendesign/tools/pack/src/config.ts:120:    electronVersion: resolveElectronVersion(WORKSPACE_ROOT),
+external/opendesign/tools/pack/src/config.ts:131:      runtime: {
+external/opendesign/tools/pack/src/config.ts:132:        namespaceBaseRoot: runtimeNamespaceBaseRoot,
+external/opendesign/tools/pack/src/config.ts:133:        namespaceRoot: join(runtimeNamespaceBaseRoot, namespace),
+external/opendesign/tools/pack/src/config.ts:144:    workspaceRoot: WORKSPACE_ROOT,
+external/opendesign/tools/pack/src/win.ts:99:  runtimeNamespaceRoot: string;
+external/opendesign/tools/pack/src/win.ts:156:  removedRuntimeNamespaceRoot: boolean;
+external/opendesign/tools/pack/src/win.ts:181:  runtimeNamespaceRootExists: boolean;
+external/opendesign/tools/pack/src/win.ts:209:    runtimeNamespaceRoot: string;
+external/opendesign/tools/pack/src/win.ts:210:    runtimeNamespaceRootExists: boolean;
+external/opendesign/tools/pack/src/win.ts:221:  runtimeNamespaces: string[];
+external/opendesign/tools/pack/src/win.ts:242:  const installDir = join(config.roots.runtime.namespaceRoot, "install", PRODUCT_NAME);
+external/opendesign/tools/pack/src/win.ts:280:  return config.portable ? `$APPDATA\\${PRODUCT_NAME}` : config.roots.runtime.namespaceRoot;
+external/opendesign/tools/pack/src/win.ts:370:  const runtimeRoot = config.roots.runtime.namespaceRoot;
+external/opendesign/tools/pack/src/win.ts:372:    { path: join(runtimeRoot, "data"), scope: "data", willRemove: config.removeData },
+external/opendesign/tools/pack/src/win.ts:373:    { path: join(runtimeRoot, "logs"), scope: "logs", willRemove: config.removeLogs },
+external/opendesign/tools/pack/src/win.ts:374:    { path: join(runtimeRoot, "runtime"), scope: "sidecars", willRemove: config.removeSidecars },
+external/opendesign/tools/pack/src/win.ts:416:    join(config.workspaceRoot, "node_modules", ".cache", "electron-builder"),
+external/opendesign/tools/pack/src/win.ts:458:async function runTimed<T>(timingPath: string, action: string, task: () => Promise<T>): Promise<T> {
+external/opendesign/tools/pack/src/win.ts:581:    cwd: config.workspaceRoot,
+external/opendesign/tools/pack/src/win.ts:600:  const packageJsonPath = join(config.workspaceRoot, "apps", "packaged", "package.json");
+external/opendesign/tools/pack/src/win.ts:608:async function buildWorkspaceArtifacts(config: ToolPackConfig): Promise<void> {
+external/opendesign/tools/pack/src/win.ts:609:  const webNextEnvPath = join(config.workspaceRoot, "apps", "web", "next-env.d.ts");
+external/opendesign/tools/pack/src/win.ts:631:    workspaceRoot: config.workspaceRoot,
+external/opendesign/tools/pack/src/win.ts:644:async function collectWorkspaceTarballs(config: ToolPackConfig, paths: WinPaths): Promise<PackedTarballInfo[]> {
+external/opendesign/tools/pack/src/win.ts:678:        description: "Open Design packaged runtime",
+external/opendesign/tools/pack/src/win.ts:701:        ...(config.portable ? {} : { namespaceBaseRoot: config.roots.runtime.namespaceBaseRoot }),
+external/opendesign/tools/pack/src/win.ts:792:      cwd: config.workspaceRoot,
+external/opendesign/tools/pack/src/win.ts:835:  await buildWorkspaceArtifacts(config);
+external/opendesign/tools/pack/src/win.ts:838:  const tarballs = await collectWorkspaceTarballs(config, paths);
+external/opendesign/tools/pack/src/win.ts:848:    runtimeNamespaceRoot: config.roots.runtime.namespaceRoot,
+external/opendesign/tools/pack/src/win.ts:858:    mode: SIDECAR_MODES.RUNTIME,
+external/opendesign/tools/pack/src/win.ts:865:  return join(config.roots.runtime.namespaceRoot, "logs", APP_KEYS.DESKTOP, "latest.log");
+external/opendesign/tools/pack/src/win.ts:869:  return join(config.roots.runtime.namespaceRoot, "runtime", "desktop-root.json");
+external/opendesign/tools/pack/src/win.ts:920:    runtimeNamespaceRootExists: await pathExists(config.roots.runtime.namespaceRoot),
+external/opendesign/tools/pack/src/win.ts:936:  await runTimed(paths.installTimingPath, "install", async () => {
+external/opendesign/tools/pack/src/win.ts:981:      base: join(config.roots.runtime.namespaceRoot, "runtime"),
+external/opendesign/tools/pack/src/win.ts:995:      matchesStampedProcess(processInfo, { mode: SIDECAR_MODES.RUNTIME, namespace: config.namespace, source: SIDECAR_SOURCES.TOOLS_PACK }, OPEN_DESIGN_SIDECAR_CONTRACT),
+external/opendesign/tools/pack/src/win.ts:1041:      const logPath = join(config.roots.runtime.namespaceRoot, "logs", app, "latest.log");
+external/opendesign/tools/pack/src/win.ts:1058:    await runTimed(paths.uninstallTimingPath, "uninstall", async () => {
+external/opendesign/tools/pack/src/win.ts:1103:  const removedRuntimeNamespaceRoot = await pathExists(config.roots.runtime.namespaceRoot);
+external/opendesign/tools/pack/src/win.ts:1110:  await removeTree(config.roots.runtime.namespaceRoot);
+external/opendesign/tools/pack/src/win.ts:1115:    removedRuntimeNamespaceRoot,
+external/opendesign/tools/pack/src/win.ts:1151:      runtimeNamespaceRoot: config.roots.runtime.namespaceRoot,
+external/opendesign/tools/pack/src/win.ts:1152:      runtimeNamespaceRootExists: await pathExists(config.roots.runtime.namespaceRoot),
+external/opendesign/tools/pack/src/win.ts:1163:    runtimeNamespaces: await listDirectories(config.roots.runtime.namespaceBaseRoot),
+external/opendesign/tools/pack/src/win.ts:1168:  const namespaces = [...new Set([...(await listDirectories(join(config.roots.output.platformRoot, "namespaces"))), ...(await listDirectories(config.roots.runtime.namespaceBaseRoot))])].sort();
+external/opendesign/tools/pack/src/win.ts:1174:      runtime: { ...config.roots.runtime, namespaceRoot: join(config.roots.runtime.namespaceBaseRoot, namespace) },
+external/opendesign/tools/pack/src/resources.ts:59:  workspaceRoot,
+external/opendesign/tools/pack/src/resources.ts:62:  workspaceRoot: string;
+external/opendesign/tools/pack/src/resources.ts:66:    await cp(join(workspaceRoot, entry.from), join(resourceRoot, entry.to), {
+external/opendesign/tools/pack/AGENTS.md:11:- Windows lifecycle logs must expose NSIS automation logs/markers/timings in addition to app runtime logs.
+external/opendesign/tools/pack/AGENTS.md:21:- Product/business update runtime integration.
+external/opendesign/tools/pack/AGENTS.md:26:- Do not use port numbers in data/log/runtime/cache path decisions. Namespace decides paths; ports are only transient transports.
+external/opendesign/tools/pack/AGENTS.md:28:- Do not let namespace-named `.app` installs change data/log/runtime/cache path conventions.
+external/opendesign/tools/pack/AGENTS.md:29:- Use `--portable` for public/release artifacts so packaged config does not bake local tools-pack runtime roots from the build machine.
+external/opendesign/tools/pack/src/resources.test.ts:11:    const workspaceRoot = join(root, "workspace");
+external/opendesign/tools/pack/src/resources.test.ts:16:        workspaceRoot,
+external/opendesign/tools/pack/src/resources.test.ts:22:        workspaceRoot,
+external/opendesign/tools/pack/src/resources.test.ts:28:      await mkdir(join(workspaceRoot, "skills", "sample"), { recursive: true });
+external/opendesign/tools/pack/src/resources.test.ts:29:      await mkdir(join(workspaceRoot, "design-systems", "sample"), {
+external/opendesign/tools/pack/src/resources.test.ts:32:      await mkdir(join(workspaceRoot, "craft", "sample"), { recursive: true });
+external/opendesign/tools/pack/src/resources.test.ts:33:      await mkdir(join(workspaceRoot, "assets", "frames"), { recursive: true });
+external/opendesign/tools/pack/src/resources.test.ts:34:      await mkdir(join(workspaceRoot, "assets", "community-pets", "sample"), {
+external/opendesign/tools/pack/src/resources.test.ts:37:      await mkdir(join(workspaceRoot, "prompt-templates", "image"), {
+
+===== opendesign-alt =====
+LICENSE HEAD:
+MIT License
+
+Copyright (c) 2026 OpenDesign contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+DIRECTORIES:
+apps
+apps/api
+apps/web
+packages
+packages/odoc-schema
+KEY SYMBOLS / DOC HITS:
+external/opendesign-alt/packages/odoc-schema/src/index.ts:5:  type: z.enum(['text', 'shape', 'image', 'chart', 'component-instance']),
+external/opendesign-alt/packages/odoc-schema/src/index.ts:31:  components: z.array(z.unknown()),
+external/opendesign-alt/packages/odoc-schema/src/index.ts:58:    components: [],
+external/opendesign-alt/README.md:3:OpenDesign is an open-source, AI-native workspace for creating prototypes, decks, and one-pagers through conversation plus direct editing.
+external/opendesign-alt/DESIGN.md:5:OpenDesign is an open-source, AI-native design workspace for generating and refining:
+external/opendesign-alt/DESIGN.md:10:...through natural language conversation plus direct editing.
+external/opendesign-alt/DESIGN.md:12:It is inspired by the category of conversational design tools, while being open, extensible, self-hostable, and model-agnostic.
+external/opendesign-alt/DESIGN.md:30:3. Strong design system support: ingest tokens/components and apply brand automatically.
+external/opendesign-alt/DESIGN.md:53:- Needs design artifacts that map cleanly to code components.
+external/opendesign-alt/DESIGN.md:60:### 4.1 Conversational Creation
+external/opendesign-alt/DESIGN.md:88:### 4.4 Design System Application
+external/opendesign-alt/DESIGN.md:90:- local codebase components
+external/opendesign-alt/DESIGN.md:99:1. Workspace with canvas + layers + properties panel + chat panel.
+external/opendesign-alt/DESIGN.md:100:2. Document model supporting pages/slides/components/text/media.
+external/opendesign-alt/DESIGN.md:114:1. Codebase-aware design system synthesis.
+external/opendesign-alt/DESIGN.md:121:## 6.1 High-level Components
+external/opendesign-alt/DESIGN.md:142:7. Plugin Runtime
+external/opendesign-alt/DESIGN.md:151:- Realtime: WebSockets + Yjs/Automerge
+external/opendesign-alt/DESIGN.md:162:  - components[]
+external/opendesign-alt/DESIGN.md:176:  - text | shape | image | chart | component-instance
+external/opendesign-alt/DESIGN.md:220:## 9) Design System Intelligence
+external/opendesign-alt/DESIGN.md:223:- CSS variables, Tailwind configs, token JSON, component libraries, style guides.
+external/opendesign-alt/DESIGN.md:227:- inferred component taxonomy
+external/opendesign-alt/DESIGN.md:246:  - spacing, typography, colors, components, states
+external/opendesign-alt/DESIGN.md:340:- Conversational generation for slides + one-pagers
+external/opendesign-alt/apps/web/src/App.tsx:39:        body: JSON.stringify({ title: 'OpenDesign Session' })
+
+===== openhands-app =====
+LICENSE HEAD:
+The MIT License (MIT)
+
+Copyright © 2025 OpenHands contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the “Software”), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+DIRECTORIES:
+.agents
+.agents/skills
+.husky
+.openhands
+.screenshots
+__mocks__
+__tests__
+__tests__/api
+__tests__/bin
+__tests__/components
+__tests__/constants
+__tests__/contexts
+__tests__/e2e
+__tests__/fixtures
+__tests__/github-workflows
+__tests__/helpers
+__tests__/hooks
+__tests__/i18n
+__tests__/manifests
+__tests__/mocks
+__tests__/routes
+__tests__/scripts
+__tests__/services
+__tests__/stores
+__tests__/themes
+__tests__/tools
+__tests__/utils
+bin
+config
+docker
+docs
+electron
+electron/build-resources
+electron/lib
+examples
+examples/acp-docker
+helm
+helm/agent-canvas
+public
+scripts
+specs
+src
+src/api
+src/assets
+src/components
+src/constants
+src/context
+src/contexts
+src/dev
+src/extensions
+src/fixtures
+src/hooks
+src/i18n
+src/icons
+src/lib
+src/manifests
+src/mocks
+src/routes
+src/services
+src/stores
+src/styles
+src/themes
+src/types
+src/ui
+src/utils
+src/wrapper
+tests
+tests/e2e
+tools
+KEY SYMBOLS / DOC HITS:
+external/openhands-app/vitest.setup.ts:9:vi.stubEnv("VITE_SESSION_API_KEY", "test-session-key");
+external/openhands-app/vitest.setup.ts:174:  vi.stubEnv("VITE_SESSION_API_KEY", "test-session-key");
+external/openhands-app/vitest.setup.ts:179:  window.sessionStorage?.removeItem("openhands-active-backend");
+external/openhands-app/vitest.setup.ts:184:  // HeroUI v2 components wrapped in framer-motion's LazyMotion) can resolve
+external/openhands-app/vite.config.ts:15:  transformAgentServerUISelector,
+external/openhands-app/vite.config.ts:22:  "react/jsx-runtime",
+external/openhands-app/vite.config.ts:23:  "react/jsx-dev-runtime",
+external/openhands-app/vite.config.ts:56:            // component's top-level `tv()` recipe can evaluate before
+external/openhands-app/vite.config.ts:73:            // blanking the whole app (the shared home/conversation/files-tab
+external/openhands-app/vite.config.ts:100:    // Runtime-services metadata for the dev server, passed by launchers that
+external/openhands-app/vite.config.ts:105:    VITE_RUNTIME_SERVICES_INFO,
+external/openhands-app/vite.config.ts:164:            const requestedPath = decodeURIComponent(
+external/openhands-app/vite.config.ts:205:              return transformAgentServerUISelector(
+external/openhands-app/vite.config.ts:250:      // Disable discovery of new deps at runtime. All deps must be listed in
+external/openhands-app/vite.config.ts:257:        // Safari is particularly sensitive to runtime dep optimization - it gets
+external/openhands-app/vite.config.ts:260:        "react/jsx-runtime",
+external/openhands-app/vite.config.ts:263:        // Pre-bundle ALL dependencies to prevent runtime optimization and page reloads
+external/openhands-app/vite.config.ts:270:        "i18next-browser-languagedetector",
+external/openhands-app/vite.config.ts:279:        // Vite can serve them directly to the browser before route hydration.
+external/openhands-app/vite.config.ts:286:        // These are discovered when launching conversations:
+external/openhands-app/vite.config.ts:300:        // Terminal dependencies - added to prevent runtime optimization
+external/openhands-app/vite.config.ts:310:        "@openhands/typescript-client/workspace/remote-workspace",
+external/openhands-app/vite.config.ts:311:        // Additional dependencies discovered at runtime
+external/openhands-app/vite.config.ts:320:        // the browser and dev crashes with ``ReferenceError: exports is not
+external/openhands-app/vite.config.ts:328:        // optimized at runtime. Include all commonly used languages.
+external/openhands-app/vite.config.ts:380:        "react-syntax-highlighter/dist/esm/languages/prism/shell-session",
+external/openhands-app/vite.config.ts:451:        // WebSocket URLs beneath the prefix, and only answers there.
+external/openhands-app/vite.config.ts:452:        // `ws: true` because the workbench upgrades to a WebSocket
+external/openhands-app/tools/canvas_ui_tool.py:1:"""Legacy conversation compatibility for the former Python Canvas UI tool.
+external/openhands-app/tools/canvas_ui_tool.py:3:New conversations define ``canvas_ui_control`` through the agent-server's
+external/openhands-app/tools/canvas_ui_tool.py:6:persisted conversations store
+external/openhands-app/tools/canvas_ui_tool.py:9:module before restoring those conversations so the legacy event kinds and tool
+external/openhands-app/tools/canvas_ui_tool.py:13:UI effect happens client-side: the frontend watches the WebSocket stream for
+external/openhands-app/tools/canvas_ui_tool.py:19:at the bottom runs before any conversation is created.
+external/openhands-app/tools/canvas_ui_tool.py:39:    "files", "browser", "vscode", "terminal", "planner", "tasklist"
+external/openhands-app/tools/canvas_ui_tool.py:50:            "Workspace-relative file path. Required for navigate_to_file and "
+external/openhands-app/tools/canvas_ui_tool.py:58:            "files, browser, vscode, terminal, planner, tasklist."
+external/openhands-app/tools/canvas_ui_tool.py:71:        conversation=None,  # noqa: ARG002
+external/openhands-app/tools/canvas_ui_tool.py:78:_CANVAS_UI_DESCRIPTION = """The user is interacting with you inside Agent Canvas — a web UI with a chat panel on the left and a tabbed right-side panel (files, terminal, browser, vscode, planner, tasklist). This tool lets you drive that right-side panel so the user sees what you just produced.
+external/openhands-app/tools/canvas_ui_tool.py:80:They will NOT see the files you wrote, the terminal output, or the browser
+external/openhands-app/tools/canvas_ui_tool.py:89:    command="navigate_to_file", path=<workspace-relative path of that file>
+external/openhands-app/tools/canvas_ui_tool.py:97:    (The Files tab automatically renders a diff view when the workspace has
+external/openhands-app/tools/canvas_ui_tool.py:100:* You ran a long-running terminal command, or one whose output the user
+external/openhands-app/tools/canvas_ui_tool.py:102:    command="open_tab", tab="terminal"
+external/openhands-app/tools/canvas_ui_tool.py:105:    First call browser_get_state(include_screenshot=true) after your final
+external/openhands-app/tools/canvas_ui_tool.py:106:    browser interaction so Agent Canvas has a screenshot to display, then call
+external/openhands-app/tools/canvas_ui_tool.py:107:    command="open_tab", tab="browser"
+external/openhands-app/tools/canvas_ui_tool.py:108:    (browser_navigate alone only updates the URL; without browser_get_state,
+external/openhands-app/tools/canvas_ui_tool.py:109:    the Browser tab will open without a screenshot.)
+external/openhands-app/tools/canvas_ui_tool.py:142:# Persisted pre-client_tools conversations import this module by qualname before
+external/openhands-app/tools/canvas_ui_tool.py:152:# module that does not self-register — so the remote conversation every Agent
+external/openhands-app/tools/canvas_ui_tool.py:156:# this once the SDK registers its builtins for remote conversations.
+external/openhands-app/helm/agent-canvas/README.md:19:  setup — so conversations, secrets, and the automation SQLite DB persist
+external/openhands-app/helm/agent-canvas/README.md:64:| `PersistentVolumeClaim` (per pod)   | Backs `~/.openhands` and `~/workspace` (both mounted from the same PVC via `subPath`): settings, encrypted secrets, conversation history, automation SQLite DB, cloned repos, generated files. |
+external/openhands-app/helm/agent-canvas/README.md:81:  conversation history and event stores, automation SQLite database
+external/openhands-app/helm/agent-canvas/README.md:83:  `OH_SECRET_KEY`, session API key
+external/openhands-app/helm/agent-canvas/README.md:84:- `~/workspace` — the agent's default working directory: cloned repos,
+external/openhands-app/helm/agent-canvas/README.md:86:  workspace root
+external/openhands-app/helm/agent-canvas/README.md:150:The agent-server uses WebSockets on `/sockets`, so long
+external/openhands-app/test-utils.tsx:21:  conversationId: "test-conversation-id",
+external/openhands-app/test-utils.tsx:24:// Mock useParams before importing components
+external/openhands-app/test-utils.tsx:61:  conversationId: "test-conversation-id",
+external/openhands-app/test-utils.tsx:149:    path: "/workspace/PLAN.md",
+external/openhands-app/test-utils.tsx:214:    path: "/workspace/PLAN.md",
+external/openhands-app/playwright.mock-llm.config.ts:32:// Tests use this single URL for both the browser (baseURL) and backend API
+external/openhands-app/playwright.mock-llm.config.ts:37:// the same build/ directory with --auth-required (no baked session key)
+external/openhands-app/playwright.mock-llm.config.ts:41:// ── Session API key ────────────────────────────────────────────────────
+external/openhands-app/playwright.mock-llm.config.ts:42:const sessionApiKey =
+external/openhands-app/playwright.mock-llm.config.ts:43:  process.env.MOCK_LLM_SESSION_API_KEY?.trim() ||
+external/openhands-app/playwright.mock-llm.config.ts:45:process.env.MOCK_LLM_SESSION_API_KEY = sessionApiKey;
+external/openhands-app/playwright.mock-llm.config.ts:149:          envAssignment("LOCAL_BACKEND_API_KEY", sessionApiKey),
+external/openhands-app/playwright.mock-llm.config.ts:151:          "VITE_ENABLE_BROWSER_TOOLS=false",
+external/openhands-app/playwright.mock-llm.config.ts:162:      // because the dev automation backend does not enforce session-key
+external/openhands-app/playwright.mock-llm.config.ts:179:    //    --auth-required (no session key injected). The agent-server's
+external/openhands-app/src/wrapper/event-handler.tsx:3:import { useHandleRuntimeActive } from "../hooks/use-handle-runtime-active";
+external/openhands-app/src/wrapper/event-handler.tsx:7:  useHandleRuntimeActive();
+external/openhands-app/README.md:33:OpenHands Agent Canvas turns your coding agents into a self-hosted, always-on engineering team. It's a developer control center for starting conversations and automating everyday tasks — like generating reports that publish to Slack or automatically decomposing GitHub issues into tasks.
+external/openhands-app/README.md:102:**Windows (PowerShell / Windows Terminal):** See [README.windows.md](./README.windows.md) for the equivalent commands.
+external/openhands-app/README.md:146:| [`OpenHands/software-agent-sdk`](https://github.com/OpenHands/software-agent-sdk) | Python SDK, Agent Server, agents, tools, conversations, workspaces, events, and the canonical server API. |
+external/openhands-app/README.md:147:| [`OpenHands/typescript-client`](https://github.com/OpenHands/typescript-client) | Browser-compatible TypeScript client for the Agent Server API. |
+
+===== openhands-cli =====
+LICENSE HEAD:
+MIT License
+
+Copyright (c) 2025 All Hands AI
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+DIRECTORIES:
+.agents
+.agents/skills
+.openhands
+.openhands/hooks
+hooks
+openhands_cli
+openhands_cli/acp_impl
+openhands_cli/argparsers
+openhands_cli/auth
+openhands_cli/cloud
+openhands_cli/conversations
+openhands_cli/mcp
+openhands_cli/shared
+openhands_cli/stores
+openhands_cli/tui
+openhands_cli/user_actions
+scripts
+scripts/acp
+tests
+tests/acp
+tests/auth
+tests/cloud
+tests/conversations
+tests/mcp
+tests/settings
+tests/shared
+tests/snapshots
+tests/stores
+tests/trajectories
+tests/tui
+tui_e2e
+KEY SYMBOLS / DOC HITS:
+external/openhands-cli/tui_e2e/test_experimental_ui.py:55:                "initialized conversation",
+external/openhands-cli/tui_e2e/test_acp.py:43:                        "terminal": True,
+external/openhands-cli/tui_e2e/test_acp.py:44:                        "_meta": {"terminal_output": True, "terminal-auth": True},
+external/openhands-cli/tui_e2e/test_acp.py:52:                "method": "session/new",
+external/openhands-cli/tui_e2e/test_acp.py:55:                    "mcpServers": [],
+external/openhands-cli/README.md:29:Run OpenHands agent inside your terminal, favorite IDE, CI pipelines, local browser, or secure OpenHands Cloud sandboxes.
+external/openhands-cli/README.md:73:- `mcp.json`: MCP server configuration
+external/openhands-cli/README.md:81:| [Terminal (TUI)](https://docs.openhands.dev/openhands/usage/cli/terminal) | `openhands` | Interactive development |
+external/openhands-cli/README.md:84:| [Web Interface](https://docs.openhands.dev/openhands/usage/cli/web-interface) | `openhands web` | Browser-based TUI |
+external/openhands-cli/README.md:89:### [MCP Servers](https://docs.openhands.dev/openhands/usage/cli/mcp-servers)
+external/openhands-cli/README.md:91:Extend OpenHands capabilities with [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) servers:
+external/openhands-cli/README.md:95:openhands mcp list
+external/openhands-cli/README.md:98:openhands mcp add tavily --transport stdio \
+external/openhands-cli/README.md:99:  npx -- -y mcp-remote "https://mcp.tavily.com/mcp/?tavilyApiKey=<your-api-key>"
+external/openhands-cli/README.md:102:openhands mcp enable <server-name>
+external/openhands-cli/README.md:103:openhands mcp disable <server-name>
+external/openhands-cli/README.md:121:### [Cloud Conversations](https://docs.openhands.dev/openhands/usage/cli/cloud)
+external/openhands-cli/README.md:146:### Resume Conversations
+external/openhands-cli/README.md:149:openhands --resume              # list recent conversations
+external/openhands-cli/README.md:150:openhands --resume <id>         # resume specific conversation
+external/openhands-cli/tui_e2e/mock_llm_server.py:5:represents a complete agent conversation that can be deterministically
+external/openhands-cli/AGENTS.md:4:OpenHands CLI is a standalone terminal interface (Textual TUI) for interacting with the OpenHands agent.
+external/openhands-cli/AGENTS.md:6:This repo contains the current CLI UX, including the Textual TUI and a browser-served view via `openhands web`.
+external/openhands-cli/AGENTS.md:14:- `openhands_cli/`: Core CLI/TUI code (`openhands_cli/entrypoint.py`, `openhands_cli/tui/`, `openhands_cli/auth/`, `openhands_cli/mcp/`, `openhands_cli/cloud/`, `openhands_cli/user_actions/`, `openhands_cli/conversations/`, `openhands_cli/theme.py`, helpers in `openhands_cli/utils.py`). Keep new modules snake_case and colocate tests.
+external/openhands-cli/AGENTS.md:16:- `scripts/acp/`: JSON-RPC and debug helpers for ACP development; `hooks/`: PyInstaller/runtime hooks.
+external/openhands-cli/AGENTS.md:35:- run the browser-served web app (Textual `textual-serve`): `openhands web`
+external/openhands-cli/AGENTS.md:87:The CLI uses [pytest-textual-snapshot](https://github.com/Textualize/pytest-textual-snapshot) for visual regression testing of Textual UI components. Snapshots are SVG screenshots that capture the exact visual state of the application.
+external/openhands-cli/AGENTS.md:122:    assert snap_compare(MyTestApp(), terminal_size=(80, 24))
+external/openhands-cli/AGENTS.md:139:    assert snap_compare(MyApp(), terminal_size=(80, 24), run_before=setup)
+external/openhands-cli/AGENTS.md:148:        terminal_size=(80, 24),
+external/openhands-cli/AGENTS.md:154:To view the generated SVG snapshots in a browser:
+external/openhands-cli/AGENTS.md:162:2. **Open in browser** using the work host URL:
+external/openhands-cli/AGENTS.md:164:   https://work-1-<id>.prod-runtime.all-hands.dev/<snapshot-name>.svg
+external/openhands-cli/AGENTS.md:179:- Always pass a fixed `terminal_size=(width, height)`.
+external/openhands-cli/AGENTS.md:193:- For UI/TUI changes, snapshot tests are the preferred evidence. If snapshots aren't available/appropriate, include screenshots (and note the terminal size used).
+external/openhands-cli/AGENTS.md:197:  3. If you touched ACP / binary executable code (e.g., `tui_e2e/`, `openhands_cli/acp_impl/`, `openhands_cli/mcp/`, auth/connection flow): `make test-binary`
+external/openhands-cli/AGENTS.md:210:- Do not embed API keys or endpoints in code; rely on runtime configuration/env vars when integrating new services.
+external/openhands-cli/AGENTS.md:217:### Core Components
+external/openhands-cli/AGENTS.md:219:**ConversationContainer (`state.py`)** - Reactive state holder
+external/openhands-cli/AGENTS.md:220:- A Textual `Container` widget that owns all conversation-related reactive properties
+external/openhands-cli/AGENTS.md:221:- Properties include: `running`, `conversation_id`, `conversation_title`, `confirmation_policy`, `pending_action_count`, `elapsed_seconds`, `metrics`
+external/openhands-cli/AGENTS.md:223:- Provides thread-safe state update methods (e.g., `set_running()`, `set_conversation_id()`)
+external/openhands-cli/AGENTS.md:226:**ConversationManager (`conversation_manager.py`)** - Message router
+external/openhands-cli/AGENTS.md:234:- `ConversationCrudController` - Creates new conversations, resets state
+external/openhands-cli/AGENTS.md:235:- `ConversationSwitchController` - Orchestrates switching (pause current, prepare new)
+external/openhands-cli/AGENTS.md:239:- `RunnerFactory` - Creates `ConversationRunner` instances with dependencies
+external/openhands-cli/AGENTS.md:240:- `RunnerRegistry` - Caches runners by conversation_id, tracks current runner
+external/openhands-cli/AGENTS.md:246:└── ConversationManager(Container)  ← message router
+external/openhands-cli/AGENTS.md:247:    └── ConversationContainer(#conversation_state)  ← reactive state
+external/openhands-cli/AGENTS.md:248:        ├── ScrollableContent(#scroll_view)  ← binds to conversation_id, pending_action_count
+external/openhands-cli/AGENTS.md:249:        │   ├── SplashContent(#splash_content)  ← binds to conversation_id
+external/openhands-cli/AGENTS.md:250:        │   └── ... dynamically added conversation widgets
+external/openhands-cli/AGENTS.md:253:            ├── InputField  ← binds to conversation_id, pending_action_count
+external/openhands-cli/AGENTS.md:259:1. **User input** → `InputField` posts `UserInputSubmitted` → bubbles to `ConversationManager` → `UserMessageController.handle_user_message()`
+external/openhands-cli/AGENTS.md:260:2. **Slash commands** → `InputField` posts `SlashCommandSubmitted` → `InputAreaContainer` routes to command handlers → posts operation messages (e.g., `CreateConversation`)
+external/openhands-cli/AGENTS.md:261:3. **State changes** → Controllers call `ConversationContainer.set_*()` methods → reactive properties update → bound widgets auto-refresh
+external/openhands-cli/AGENTS.md:262:4. **Cross-thread updates** → `ConversationContainer._schedule_update()` uses `call_from_thread()` for thread safety
+external/openhands-cli/AGENTS.md:266:- **Reactive state**: UI components bind to `ConversationContainer` properties via `data_bind()`, auto-update on changes
+external/openhands-cli/AGENTS.md:267:- **Single source of truth**: `ConversationContainer` owns all conversation state
+external/openhands-cli/AGENTS.md:269:- **Message-based communication**: Components communicate via Textual messages that bubble up the widget tree
+external/openhands-cli/AGENTS.md:270:- **Controller pattern**: Business logic split into focused controllers, `ConversationManager` is just a router
+external/openhands-cli/tui_e2e/mock_critic.py:70:            events: The conversation events (ignored - we replay from trajectory)
+external/openhands-cli/tui_e2e/README.md:17:E2E tests use **trajectory replay** to ensure deterministic, reproducible testing. A trajectory is a recorded sequence of events from a real agent conversation that can be replayed by the mock LLM server.
+external/openhands-cli/tui_e2e/README.md:46:5. **CLI executes tool calls**: The actual CLI executes tool calls (e.g., terminal commands)
+external/openhands-cli/tui_e2e/README.md:130:Run a real conversation and save the events to `tests/trajectories/<name>/`:
+external/openhands-cli/tui_e2e/README.md:133:# Events are automatically saved during conversation
+external/openhands-cli/scripts/run_watch.py:2:"""Watch for file changes and restart openhands CLI with proper terminal handling.
+external/openhands-cli/scripts/run_watch.py:4:This script manages the subprocess lifecycle properly, ensuring clean terminal
+external/openhands-cli/scripts/run_watch.py:7:Note: Terminal reset (stty) is Unix-only. On Windows, basic ANSI reset is used.
+external/openhands-cli/scripts/run_watch.py:20:TERMINAL_SETTLE_DELAY = 0.2  # Wait 200ms for terminal cleanup
+external/openhands-cli/scripts/run_watch.py:24:def reset_terminal():
+external/openhands-cli/scripts/run_watch.py:25:    """Reset terminal to a clean state."""
+external/openhands-cli/scripts/run_watch.py:26:    # ANSI escape sequences to reset terminal
+external/openhands-cli/scripts/run_watch.py:33:    # Unix-only: reset terminal line settings
+external/openhands-cli/scripts/run_watch.py:58:        reset_terminal()
+external/openhands-cli/scripts/run_watch.py:82:            reset_terminal()
+external/openhands-cli/scripts/run_watch.py:107:            reset_terminal()
+external/openhands-cli/scripts/run_watch.py:136:            time.sleep(TERMINAL_SETTLE_DELAY)
+external/openhands-cli/conftest.py:19:    - OPENHANDS_CONVERSATIONS_DIR -> isolated temp dir
+external/openhands-cli/conftest.py:27:    conversations_dir = persistence_dir / "conversations"
+
+===== openhands-extensions =====
+LICENSE HEAD:
+MIT License
+
+Copyright (c) 2025 OpenHands
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+DIRECTORIES:
+.agents
+.agents/skills
+.plugin
+.pr
+automations
+automations/catalog
+integrations
+integrations/catalog
+integrations/icons
+marketplaces
+plugins
+plugins/city-weather
+plugins/cobol-modernization
+plugins/issue-duplicate-checker
+plugins/magic-test
+plugins/migration-scoring
+plugins/onboarding
+plugins/openhands
+plugins/pr-review
+plugins/qa-changes
+plugins/release-notes
+plugins/vulnerability-remediation
+python
+python/openhands_extensions
+scripts
+skills
+skills/add-javadoc
+skills/add-skill
+skills/agent-canvas-environment
+skills/agent-creator
+skills/agent-memory
+skills/agent-sdk-builder
+skills/azure-devops
+skills/bitbucket
+skills/bitbucket-cloud
+skills/bitbucket-data-center
+skills/code-review
+skills/code-simplifier
+skills/datadog
+skills/deno
+skills/discord
+skills/docker
+skills/evidence-based-citations
+skills/flarglebargle
+skills/frontend-design
+skills/github
+skills/github-actions
+skills/github-agents-md-maintainer
+skills/github-issue-to-pr
+skills/github-pr-review
+skills/github-pr-reviewer
+skills/github-repo-monitor
+skills/gitlab
+skills/incident-retrospective
+skills/iterate
+skills/jira-issue-to-pr
+skills/jupyter
+skills/kubernetes
+skills/learn-from-code-review
+skills/linear
+skills/linear-triage
+skills/news-digest
+skills/notion
+skills/npm
+skills/openhands-api
+skills/openhands-automation
+skills/openhands-sdk
+skills/pdflatex
+skills/plain-english-content
+skills/prd
+skills/qa-changes
+skills/release-notes
+skills/research-brief
+skills/security
+skills/skill-creator
+skills/slack-channel-monitor
+skills/slack-standup-digest
+skills/spark-version-upgrade
+skills/ssh
+skills/swift-linux
+KEY SYMBOLS / DOC HITS:
+external/openhands-extensions/MIGRATION.md:26:The filter arguments (`mcp=`, `oauth=`) and the `None` returned for an unknown
+external/openhands-extensions/MIGRATION.md:34:## MCP catalog to integration catalog
+external/openhands-extensions/MIGRATION.md:36:This package version is still `0.0.0`, and the MCP catalog was an experimental
+external/openhands-extensions/MIGRATION.md:37:pre-release API. This migration intentionally removes the old MCP-only export
+external/openhands-extensions/MIGRATION.md:45:import { MCP_CATALOG } from "@openhands/extensions/mcps";
+external/openhands-extensions/MIGRATION.md:46:import { MCP_LOGOS } from "@openhands/extensions/mcps/logos";
+external/openhands-extensions/MIGRATION.md:56:TypeScript consumers should replace `McpCatalogEntry` with
+external/openhands-extensions/MIGRATION.md:61:Before, MCP entries exposed a single `template`:
+external/openhands-extensions/MIGRATION.md:76:MCP-backed options use `provider: "mcp"` and include their transport details.
+external/openhands-extensions/MIGRATION.md:78:to be MCP servers.
+external/openhands-extensions/MIGRATION.md:82:Automation templates now refer to integrations, not MCP-only records:
+external/openhands-extensions/MIGRATION.md:85:- requiredMcpIds
+external/openhands-extensions/MIGRATION.md:91:There is no deprecation window for the old `mcps` exports. They were removed in
+external/openhands-extensions/automations/index.d.ts:58: * describes what the automation does at runtime.
+external/openhands-extensions/automations/index.d.ts:224:   * Setup context for the conversation that finishes setup. Required for
+external/openhands-extensions/automations/index.d.ts:226:   * conversation offered when the deployment cannot run the direct path.
+external/openhands-extensions/automations/index.d.ts:394:/** The closed set of runtime-model properties a client may offer for setting. */
+external/openhands-extensions/automations/index.d.ts:418: * The input surface of an existing Automation, keyed by the runtime-model
+external/openhands-extensions/tests/test_version_alignment.py:39:    # Runtime __version__ is metadata-derived when installed, fallback otherwise;
+external/openhands-extensions/tests/test_version_alignment.py:42:        f"runtime __version__ {v.__version__!r} disagrees with fallback/package.json"
+external/openhands-extensions/skills/vercel/SKILL.md:54:4. **For Browser-Based Testing**
+external/openhands-extensions/integrations/index.d.ts:21:       * headers on every MCP request. The direct analog of stdio's
+external/openhands-extensions/integrations/index.d.ts:34:       * `https://mcp.<site>.datadoghq.com/v1/mcp`); pair with the entry's
+external/openhands-extensions/integrations/index.d.ts:64:export type IntegrationProvider = "mcp" | "http";
+external/openhands-extensions/integrations/index.d.ts:138:  selectionMode: "automatic" | "post_auth" | "runtime";
+external/openhands-extensions/integrations/index.d.ts:176:  /** Filter on whether the entry exposes at least one `mcp` connector. */
+external/openhands-extensions/integrations/index.d.ts:177:  mcp?: boolean;
+external/openhands-extensions/AGENTS.md:13:- [`OpenHands/software-agent-sdk`](https://github.com/OpenHands/software-agent-sdk) owns the Python SDK, Agent Server, agent/tool behavior, conversations, workspaces, events, and canonical API.
+external/openhands-extensions/AGENTS.md:14:- [`OpenHands/typescript-client`](https://github.com/OpenHands/typescript-client) owns the browser-compatible typed Agent Server client.
+external/openhands-extensions/AGENTS.md:26:- `plugins/` — a catalog of plugins with executable code components.
+external/openhands-extensions/AGENTS.md:45:   - Loaded at conversation start.
+external/openhands-extensions/AGENTS.md:104:- **`defaultEnabled` on marketplace skill entries**: a skill entry may carry `"defaultEnabled": true`, which means the skill is enabled for every **new** workspace. Omit the field for everything else - absence already means off, so `"defaultEnabled": false` is not written. Keep the set small and provider-agnostic; anything language-, vendor- or workflow-specific should start off and be opted into from the catalog UI. `npm run build:skills` joins the flag into `skills/index.js` and exports `DEFAULT_ENABLED_SKILL_NAMES` for hosts to seed a workspace from. Seeding is all it does: the contract hosts implement is that a workspace which already saved a selection keeps it, so adding the flag to a skill later will not retroactively enable it for existing users.
+external/openhands-extensions/AGENTS.md:108:- `integrations/catalog/*.json` is the single hand-authored source of truth consumed by `@openhands/extensions`; adding or editing an integration should require changing exactly one JSON file in that directory. Do not reintroduce `integrations/integration-catalog.json`, separate provider files, per-language catalog duplicates, or provider-specific runtime code. Run `npm run build:integrations` after catalog edits to regenerate `integrations/catalog-index.js`, which statically imports each individual JSON file for the JS package. The Python package includes the same individual JSON files via wheel data and reads them directly. Agent-canvas and integrations-hub import this package directly, so integration marketplace fixes belong here rather than in app-local constants. When upstream MCP projects move repos, verify both `docsUrl` and the connection option (`transport`, `command`/`args`, or URL), not just links. JS exposes `listIntegrationCatalog({ mcp, oauth })` / `getIntegrationCatalogEntry`; Python mirrors with `list_integration_catalog_models(mcp=, oauth=)` / `get_integration_catalog_entry_model`, which return validated Pydantic models (the raw-dict accessors were deprecated in 0.10.0 and removed in 0.12.0). The legacy provider-catalog compatibility layer and `managedConnectorMigration` / `legacyScopeBundles` / `canonicalServerUrl` / `errorHints` mechanisms were removed intentionally; providers declare only standard OAuth config as integration data.
+external/openhands-extensions/AGENTS.md:109:- `automations/catalog/<id>/` follows the same rule, as a directory per automation so an automation can ship the scripts it uploads to the automations service alongside its metadata. `manifest.json` is the single hand-authored file, carrying both the card metadata and an optional nested `setup` block (the extension-owned configuration experience). Every entry is validated against `automations/catalog.schema.json`. Run `npm run build:automations` after catalog edits to regenerate `automations/catalog-index.js`. JS exposes `listAutomationCatalog()` / `getAutomationCatalogEntry(id)` alongside `AUTOMATION_CATALOG`. The governing rule is that a manifest states only what varies between automations, and states it once; anything derivable is absent and the host generates it. Derived, so never written in a manifest: the command that launches the card (read from the `triggers:` frontmatter of the skill named by `skill`, which defaults to `id` and is stated only where the two differ - editing an automation must never require editing a skill), the setup route (`/automations/new/<id>`), the trigger variants a deployment can offer (the keys of `setup.form.triggers`; multiple keys mean any supported selected variant can run), schedule limits, timezone lists, event choices, and model profiles (the `cron`, `timezone`, `event-source`, `event-type`, and `llm-profile` field types), the preflight call, the create request's `name`/`repos`/`model`/`timeout`/`trigger` (rebuilt from same-named form fields when present, the repo-picker field, and the selected key and fields under `setup.form.triggers`, where a field is named after the property it fills), the mapping from a rejected payload path back to the input at fault, the review screen, the create endpoint, the post-success navigation, and the analytics stages. `requires.integrations` is keyed by integration id and lives on the entry, not in `setup`, because a card lists its integrations whether or not it ships a setup flow; there is no key anywhere for a credential, because the credential comes with the connection. `setup.form` splits inputs into `triggers` (keyed by trigger kind - what decides when the automation runs) and `args` (everything else), both keyed by field name. `setup` declares a `prompt` (plus a `filter` for an event trigger) when `mode` is `direct`, and a `message` when it is `assisted`. Contract fixtures are test vectors, not catalog data: they live in `tests/fixtures/automations/`, are optional per automation, and are reachable only through the `@openhands/extensions/testing/automations/*.json` subpath - never from the runtime entry point.
+external/openhands-extensions/AGENTS.md:113:- When reviewing or editing `skills/openhands-sdk`, validate copy-paste imports against the released packages with `uv run --with openhands-tools --with openhands-workspace --with openhands-agent-server python ...`. In the current released workspace package, the exported remote workspace classes are `APIRemoteWorkspace` / `OpenHandsCloudWorkspace`; `RemoteAPIWorkspace` is not available.
+external/openhands-extensions/AGENTS.md:114:- For agent-driven plugin scripts, prefer `from openhands.sdk.plugin import PluginSource` and pass `plugins=[PluginSource(source=...)]` into `Conversation`. In the current released SDK (`openhands-sdk` 1.18.x), `Plugin` is not exported from `openhands.sdk.plugin`, so direct `Plugin.load(...)` imports can break CI.
+external/openhands-extensions/skills/vercel/README.md:54:4. **For Browser-Based Testing**
+external/openhands-extensions/tests/test_slack_channel_monitor.py:15:    os.environ["WORKSPACE_BASE"] = "/tmp/openhands/workspaces/slack-monitor-test/run"
+external/openhands-extensions/automations/README.md:57:| Where a success navigates | The created automation, or the started conversation |
+external/openhands-extensions/automations/README.md:118:An assisted entry declares no triggers, because the trigger is settled during the conversation.
+external/openhands-extensions/automations/README.md:129:- **`mode: "assisted"`** declares a `message`: setup context handed to an agent conversation that finishes
+external/openhands-extensions/automations/README.md:130:  the job. The command that opens that conversation comes from the skill, so it is not repeated here.
+external/openhands-extensions/automations/README.md:132:A direct entry may also declare a `message`. It is the seed for the fallback conversation the host offers
+external/openhands-extensions/automations/README.md:159:dedupe, per-repo state and the review checkout, and starts a conversation only
+external/openhands-extensions/automations/README.md:231:| `incident-retrospective-drafter` | Assisted conversation | decided during the conversation | a seed message |
+external/openhands-extensions/automations/README.md:238:yet. The agent creates it during the conversation, and the service validates it there. That is the defining
+external/openhands-extensions/automations/README.md:256:Agent Canvas keeps its rendering components and reads every automation-specific datum from this file,
+external/openhands-extensions/automations/README.md:281:  creation, keyed by the runtime-model property the host sends (`name`, `prompt`, `model`, `timeout`,
+external/openhands-extensions/automations/README.md:305:The fixtures are independent test vectors, not part of the runtime catalog. They live in
+external/openhands-extensions/automations/README.md:318:`localValidation`, `preflight`, `create`, `conversation`, `expectedFieldErrors`,
+external/openhands-extensions/automations/README.md:373:| `submit` | Reduced to the parts that vary: `prompt` and, for an event trigger, `filter` for direct; `message` for assisted (and, on direct entries, as the fallback-conversation seed). The action, success navigation, and error handling are identical everywhere; the endpoints are domain-level and live in `interface.json`. |
+external/openhands-extensions/automations/README.md:380:| `submit.message` | Kept as `setup.message`, capped at 2000 characters, so seed messages cannot grow back into the giant runtime prompts that recommended automation cards were already fixed to stop sending. |
+external/openhands-extensions/automations/README.md:390:  bump and a dependency update. Delivering "change automation UI without a Canvas release" needs runtime
+external/openhands-extensions/automations/README.md:392:- **Integration credentials at runtime.** Dropping `requires.secrets` assumes a created automation can use
+external/openhands-extensions/automations/README.md:397:- **Assisted-setup completion.** The assisted flow ends at a conversation, so the host cannot emit a
+external/openhands-extensions/README.md:12:`OpenHands/extensions` is the public registry for reusable skills, plugins, automations, and integrations. [`OpenHands/software-agent-sdk`](https://github.com/OpenHands/software-agent-sdk) owns Agent Server execution and the canonical API, [`OpenHands/typescript-client`](https://github.com/OpenHands/typescript-client) owns typed browser access to that API, [`OpenHands/OpenHands`](https://github.com/OpenHands/OpenHands) owns Agent Canvas UI, and [`OpenHands/automation`](https://github.com/OpenHands/automation) owns scheduling, webhooks, run history, dispatch, and sandbox lifecycle orchestration.
+external/openhands-extensions/README.md:30:Plugins are extensions with executable code components (hooks, scripts).
+external/openhands-extensions/README.md:45:import { INTEGRATION_CATALOG as MCP_MARKETPLACE } from "@openhands/extensions/integrations";
+external/openhands-extensions/README.md:49:React logo components are isolated behind a separate export so data-only consumers do not need React peer dependencies:
+external/openhands-extensions/README.md:71:Each catalog entry can carry oauth and/or mcp/http `connectionOptions`. `supportsOauth` / `supportsMcp` flags are derived at runtime. Use `listIntegrationCatalog({ mcp, oauth })` (JS) or `list_integration_catalog_models(mcp=, oauth=)` (Python) to filter by connector type - for example only integrations that support an oauth connector.
+external/openhands-extensions/README.md:75:    list_integration_catalog_models,                 # listIntegrationCatalog({ mcp, oauth })
+external/openhands-extensions/README.md:82:mcp_integrations = list_integration_catalog_models(mcp=True)      # only entries with an mcp connector
+external/openhands-extensions/README.md:122:| add-skill | skill | Add (import) an OpenHands skill from a GitHub repository into the current workspace. | — |
+external/openhands-extensions/README.md:123:| agent-canvas-environment | skill | Work effectively inside a local Agent Canvas environment, including local agent-server auth, safe workspace hygiene, ... | — |
+external/openhands-extensions/README.md:129:| bitbucket-cloud | skill | Bitbucket Cloud (bitbucket.org) specifics — authenticate with BITBUCKET_TOKEN, use the REST API v2, workspace/repo_sl... | — |
+external/openhands-extensions/README.md:163:| openhands-api | skill | Use the OpenHands Cloud REST API (V1) and agent-server APIs to create and manage Cloud or local backend conversations... | — |
+external/openhands-extensions/README.md:175:| slack-channel-monitor | skill | Create a cron automation that polls up to 10 Slack channels every minute and starts an OpenHands conversation when a ... | `/slack-monitor:poll` |
+external/openhands-extensions/README.md:179:| technical-writing | skill | Write and revise technical explanations in flowing, direct, conversational prose that stays concise without becoming ... | — |
+external/openhands-extensions/integrations/README.md:4:Most current entries are MCP-backed, but the schema also supports HTTP/OpenAPI
+external/openhands-extensions/integrations/README.md:14:- `index.js` derives the `supportsMcp`/`supportsOauth` filters from the
+external/openhands-extensions/integrations/README.md:18:Each integration carries its OAuth/MCP connection data directly. Do not add a
+external/openhands-extensions/integrations/README.md:34:  one workspace/site/tenant or can enumerate several.
+external/openhands-extensions/integrations/README.md:36:  selected immediately after auth, or supplied at runtime.
+external/openhands-extensions/integrations/README.md:58:## Migration from the MCP catalog
+external/openhands-extensions/integrations/README.md:60:This catalog replaces the experimental `@openhands/extensions/mcps` export.
+external/openhands-extensions/integrations/README.md:61:The MCP-only `mcps/` directory has been renamed to `integrations/`, and the
+external/openhands-extensions/integrations/README.md:65:  instead of `MCP_CATALOG` from `@openhands/extensions/mcps`.
+external/openhands-extensions/integrations/README.md:68:- Use `IntegrationCatalogEntry` instead of `McpCatalogEntry`.
+external/openhands-extensions/integrations/README.md:69:- Read MCP configuration from `entry.connectionOptions[]`. Direct MCP entries
+external/openhands-extensions/integrations/README.md:70:  have `provider: "mcp"` and a `transport`; entries may expose multiple
+
+===== openhands-software-agent-sdk =====
+LICENSE HEAD:
+MIT License
+
+Copyright (c) 2026 OpenHands contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+DIRECTORIES:
+.agents
+.agents/skills
+.openhands
+.openhands/hooks
+clients
+clients/typescript
+examples
+examples/01_standalone_sdk
+examples/02_remote_agent_server
+examples/03_github_workflows
+examples/04_llm_specific_tools
+examples/05_skills_and_plugins
+openhands-agent-server
+openhands-agent-server/openhands
+openhands-sdk
+openhands-sdk/openhands
+openhands-tools
+openhands-tools/openhands
+openhands-workspace
+openhands-workspace/openhands
+scripts
+scripts/agent_server_ui
+scripts/event_sourcing_benchmarks
+tests
+tests/agent_server
+tests/cross
+tests/examples
+tests/fixtures
+tests/integration
+tests/sdk
+tests/tools
+tests/workspace
+KEY SYMBOLS / DOC HITS:
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:1:"""Test pause and resume functionality for workspace classes."""
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:14:def mock_docker_workspace():
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:15:    """Create a mocked DockerWorkspace with minimal setup."""
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:16:    from openhands.workspace import DockerWorkspace
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:18:    with patch("openhands.workspace.docker.workspace.execute_command") as mock_exec:
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:21:        with patch.object(DockerWorkspace, "_start_container"):
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:22:            workspace = DockerWorkspace(server_image="test:latest")
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:24:        workspace._container_id = "container_id_123"
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:25:        workspace._image_name = "test:latest"
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:26:        workspace._stop_logs = MagicMock()
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:27:        workspace._logs_thread = None
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:29:        yield workspace, mock_exec
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:33:def mock_api_workspace():
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:34:    """Create a mocked APIRemoteWorkspace with minimal setup."""
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:35:    from openhands.workspace import APIRemoteWorkspace
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:37:    with patch.object(APIRemoteWorkspace, "_start_or_attach_to_runtime"):
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:38:        workspace = APIRemoteWorkspace(
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:39:            runtime_api_url="https://example.com",
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:40:            runtime_api_key="test-key",
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:44:    workspace._runtime_id = "runtime-123"
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:45:    workspace._runtime_url = "https://runtime.example.com"
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:46:    workspace._session_api_key = "session-key"
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:47:    workspace.host = workspace._runtime_url
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:49:    yield workspace
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:53:def mock_cloud_workspace():
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:54:    """Create a mocked OpenHandsCloudWorkspace with minimal setup."""
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:55:    from openhands.workspace import OpenHandsCloudWorkspace
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:57:    with patch.object(OpenHandsCloudWorkspace, "_start_sandbox"):
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:58:        workspace = OpenHandsCloudWorkspace(
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:63:    workspace._sandbox_id = "sandbox-123"
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:64:    workspace._session_api_key = "session-key"
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:65:    workspace.host = "https://agent-server.example.com"
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:67:    yield workspace
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:71:# LocalWorkspace Tests
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:75:def test_local_workspace_pause_is_noop():
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:76:    """Test that pause() is a no-op for LocalWorkspace."""
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:77:    from openhands.sdk.workspace import LocalWorkspace
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:79:    workspace = LocalWorkspace(working_dir="/tmp")
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:81:    workspace.pause()
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:84:def test_local_workspace_resume_is_noop():
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:85:    """Test that resume() is a no-op for LocalWorkspace."""
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:86:    from openhands.sdk.workspace import LocalWorkspace
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:88:    workspace = LocalWorkspace(working_dir="/tmp")
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:90:    workspace.resume()
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:94:# DockerWorkspace Tests
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:98:def test_docker_workspace_pause_calls_docker_pause(mock_docker_workspace):
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:100:    workspace, mock_exec = mock_docker_workspace
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:102:    workspace.pause()
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:111:def test_docker_workspace_resume_calls_docker_unpause(mock_docker_workspace):
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:113:    workspace, mock_exec = mock_docker_workspace
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:114:    workspace.host_port = 8000
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:117:    with patch.object(workspace, "_wait_for_health"):
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:118:        workspace.resume()
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:127:def test_docker_workspace_pause_raises_if_no_container():
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:128:    """Test that pause() raises RuntimeError if container not running."""
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:129:    from openhands.workspace import DockerWorkspace
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:131:    with patch.object(DockerWorkspace, "_start_container"):
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:132:        with patch("openhands.workspace.docker.workspace.execute_command") as mock_exec:
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:134:            workspace = DockerWorkspace(server_image="test:latest")
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:136:    workspace._container_id = None
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:138:    with pytest.raises(RuntimeError, match="container is not running"):
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:139:        workspace.pause()
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:142:def test_docker_workspace_resume_raises_if_no_container():
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:143:    """Test that resume() raises RuntimeError if container not running."""
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:144:    from openhands.workspace import DockerWorkspace
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:146:    with patch.object(DockerWorkspace, "_start_container"):
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:147:        with patch("openhands.workspace.docker.workspace.execute_command") as mock_exec:
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:149:            workspace = DockerWorkspace(server_image="test:latest")
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:151:    workspace._container_id = None
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:153:    with pytest.raises(RuntimeError, match="container is not running"):
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:154:        workspace.resume()
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:158:# APIRemoteWorkspace Tests
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:162:def test_api_workspace_pause_calls_api_endpoint(mock_api_workspace):
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:164:    workspace = mock_api_workspace
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:166:    with patch.object(workspace, "_send_api_request") as mock_request:
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:167:        workspace.pause()
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:175:def test_api_workspace_resume_calls_api_endpoint(mock_api_workspace):
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:177:    workspace = mock_api_workspace
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:179:    with patch.object(workspace, "_resume_runtime") as mock_resume:
+external/openhands-software-agent-sdk/tests/workspace/test_workspace_pause_resume.py:180:        with patch.object(workspace, "_wait_until_runtime_alive"):
+

@@ -1,0 +1,7 @@
+# External audit clones are intentionally not part of Cortex Core history.
+/external/*/.git/
+# Local audit evidence generated from external clones.
+/docs/*_EVIDENCE.txt
+/docs/LOCAL_AUDIT_EVIDENCE.txt
+/audit_local.sh
+/external/
